@@ -1,28 +1,19 @@
-const MongoClient = require("mongodb").MongoClient;
-const assert = require("assert");
+const mongoose = require('mongoose');
 
-// Connection URL
-const url = "mongodb://localhost:27017";
+mongoose.connect('mongodb://localhost:27017/fruitsDB', { useNewUrlParser: true });
 
-// Database Name
-const dbName = "fruitsDB";
+const fruitSchema = new mongoose.Schema ({
+  name: String,
+  rating: Number,
+  review: String
+})
 
-// Create a new MongoClient
-const client = new MongoClient(url, { useUnifiedTopology: true });
 
-// Use connect method to connect to the Server
-client.connect(function(err) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
 
-  const db = client.db(dbName);
 
-  insertDocuments(db, function() {
-    findDocuments(db, function() {
-    client.close();
-  })
-  });
-});
+
+
+
 
 const insertDocuments = function(db, callback) {
   // Get the documents collection
@@ -30,7 +21,10 @@ const insertDocuments = function(db, callback) {
   // Insert some documents
   collection.insertMany(
     [
-      { name: "Mango", score: 8, review: "fiberous" },
+      {
+      name: "Mango",
+      score: 8,
+      review: "fiberous" },
       {
         name: "Grapes",
         score: 6,
