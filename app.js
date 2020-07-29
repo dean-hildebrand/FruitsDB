@@ -29,25 +29,50 @@ const fruitSchema = new mongoose.Schema({
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 // new fruit to be created and added to db
-const fruit = new Fruit({
+const kiwi = new Fruit({
   name: "Kiwi",
   rating: 7,
   review: "Delicious and green"
 });
-// fruit.save();
+// kiwi.save();
+
+const pineapple = new Fruit({
+  name: "Pineapple",
+  rating: 9,
+  review: "Great fruit."
+})
+// pineapple.save()
+
+const peach = new Fruit({
+  name: "Peach",
+  rating: 10,
+  review: "Yummy and sweet."
+})
+// peach.save()
+
+const guava = new Fruit({
+  name: "Guava",
+  rating: 8,
+  review: "Tropical and mouth watering in fruit salad!"
+})
+// guava.save()
 
 const personSchema = new mongoose.Schema({
   name: String,
-  age: Number
+  age: Number,
+  // adds a relationship of favorite fruit to a Person
+  favoriteFruit: fruitSchema
 });
 
 const Person = mongoose.model("Person", personSchema);
 
-const person = new Person({
-  name: "John",
-  age: 37
+
+const amy = new Person({
+  name: "Amy",
+  age: 12,
+  favoriteFruit: pineapple
 });
-// person.save()
+// amy.save()
 
 // Finding/Reading a fruit in db
 Fruit.find(function(err, fruits) {
@@ -61,19 +86,19 @@ Fruit.find(function(err, fruits) {
     });
 });
 
-// update Fruit
-// Fruit.updateOne({_id: "5f1f3997ae44162082bf5654"}, {name: "Peach", rating: 10, review: "Peaches are amazing!!!"}, function(err){
+// update Person
+// Person.updateOne({name: "John"}, {favoriteFruit: guava}, function(err){
 //   if(err){
 //     console.log(err);
 //   } else {
 //     console.log("Logged successfully");
 //   }
 // })
-
-Fruit.deleteMany({name: "Apple"}, function(err){
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Deleted successfully");
-  }
-})
+// //
+// Person.deleteMany({name: "Amy"}, function(err){
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Deleted successfully");
+//   }
+// })
