@@ -15,7 +15,7 @@ db.once("open", function() {
 const fruitSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: [true, "Your fruit needs a name!"]
   },
   rating: {
     type: Number,
@@ -29,11 +29,11 @@ const fruitSchema = new mongoose.Schema({
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 // new fruit to be created and added to db
-// const fruit = new Fruit({
-//   name: "Apple",
-//   rating: 7,
-//   review: "Pretty solid as a fruit"
-// });
+const fruit = new Fruit({
+  name: "Kiwi",
+  rating: 7,
+  review: "Delicious and green"
+});
 // fruit.save();
 
 const personSchema = new mongoose.Schema({
@@ -49,8 +49,7 @@ const person = new Person({
 });
 // person.save()
 
-// Finding a fruit in db
-
+// Finding/Reading a fruit in db
 Fruit.find(function(err, fruits) {
   if (err) {
     console.log(err);
@@ -61,3 +60,20 @@ Fruit.find(function(err, fruits) {
       console.log(fruit.name);
     });
 });
+
+// update Fruit
+// Fruit.updateOne({_id: "5f1f3997ae44162082bf5654"}, {name: "Peach", rating: 10, review: "Peaches are amazing!!!"}, function(err){
+//   if(err){
+//     console.log(err);
+//   } else {
+//     console.log("Logged successfully");
+//   }
+// })
+
+Fruit.deleteMany({name: "Apple"}, function(err){
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Deleted successfully");
+  }
+})
